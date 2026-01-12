@@ -1,46 +1,164 @@
-format = '''
-$directory$git_branch$rust$python
-$character'''
+"$schema" = 'https://starship.rs/config-schema.json'
 
-palette = 'colors'
+format = """
+[](surface0)\
+$os\
+$username\
+[](bg:peach fg:surface0)\
+$directory\
+[](fg:peach bg:green)\
+$git_branch\
+$git_status\
+[](fg:green bg:teal)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:teal bg:blue)\
+$docker_context\
+[](fg:blue bg:purple)\
+$time\
+[ ](fg:purple)\
+$line_break$character"""
 
-[palettes.colors]
-mustard = '#af8700' # example
-color1 = '{{colors.primary_fixed_dim.default.hex}}'
-color2 = '{{colors.on_primary.default.hex}}'
-color3 = '{{colors.on_surface_variant.default.hex}}'
-color4 = '{{colors.surface_container.default.hex}}'
-color5 = '{{colors.on_primary.default.hex}}'
-color6 = '{{colors.surface_dim.default.hex}}'
-color7 = '{{colors.surface.default.hex}}'
-color8 = '{{colors.primary.default.hex}}'
-color9 = '{{colors.tertiary.default.hex}}'
+palette = 'matugen'
 
-# Prompt symbols 
-[character]
-success_symbol = "[🞈](color9 bold)"
-error_symbol = "[🞈](@{error})"
-vicmd_symbol = "[🞈](#f9e2af)"
+[palettes.matugen]
+surface0 = '{{colors.surface_container.default.hex}}'
+peach = '{{colors.primary.default.hex}}'
+green = '{{colors.secondary.default.hex}}'
+teal = '{{colors.tertiary.default.hex}}'
+blue = '{{colors.primary_fixed.default.hex}}'
+purple = '{{colors.secondary_fixed.default.hex}}'
+lavender = '{{colors.tertiary_fixed.default.hex}}'
+text = '{{colors.on_surface.default.hex}}'
+mantle = '{{colors.surface_dim.default.hex}}'
+base = '{{colors.on_surface.default.hex}}'
+red = '{{colors.error.default.hex}}'
+color_bg3 = '{{colors.surface_variant.default.hex}}'
+
+[os]
+disabled = false
+style = "bg:surface0 fg:text"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = ""
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:surface0 fg:text"
+style_root = "bg:surface0 fg:text"
+format = '[ $user ]($style)'
 
 [directory]
-format = "[](fg:color1 bg:color4)[󰉋](bg:color1 fg:color2)[ ](fg:color1 bg:color4)[$path ](fg:color3 bg:color4)[ ](fg:color4)"
+style = "fg:mantle bg:peach"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
 "Downloads" = " "
-"Music" = " "
+"Music" = "󰝚 "
 "Pictures" = " "
+"Developer" = "󰲋 "
 
 [git_branch]
-format = "[](fg:color8 bg:color4)[ ](bg:color8 fg:color5)[](fg:color8 bg:color4)[(bg:color8 fg:color5) $branch](fg:color3 bg:color4)[](fg:color4) "
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
 
-[time]
-format = "[](fg:color8 bg:color4)[ ](bg:color8 fg:color5)[](fg:color8 bg:color4)[(bg:color8 fg:color5) $time](fg:color3 bg:color4)[](fg:color4) "
-disabled = false
-time_format = "%R" # Hour:Minute Format
+[git_status]
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[c]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[php]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[java]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [python]
-format = "[](fg:color8 bg:color4)[${symbol}${version}](bg:color8 fg:color5)[](fg:color8 bg:color4)[(bg:color8 fg:color5)( ${virtualenv})](fg:color3 bg:color4)[](fg:color4) "
-symbol = '🐍'
-# pyenv_version_name = true
-pyenv_prefix = 'venv'
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:mantle"
+format = '[[ $symbol( $context) ](fg:text bg:color_bg3)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:peach"
+format = '[[  $time ](fg:mantle bg:purple)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[](bold fg:green)'
+error_symbol = '[](bold fg:red)'
+vimcmd_symbol = '[](bold fg:creen)'
+vimcmd_replace_one_symbol = '[](bold fg:purple)'
+vimcmd_replace_symbol = '[](bold fg:purple)'
+vimcmd_visual_symbol = '[](bold fg:lavender)'
